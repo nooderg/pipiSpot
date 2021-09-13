@@ -3,15 +3,45 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/nooderg/pipiSpot/internal/env"
+	_ "github.com/nooderg/pipiSpot/internal/configs"
+	"github.com/nooderg/pipiSpot/internal/controllers"
 	"github.com/nooderg/pipiSpot/pkg/responses"
 )
 
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/api/hello", helloworld).Methods("GET")
+	log.Println("Starting server...")
+	initEnvironment()
 
+	log.Println("Init routes...")
+	initRouter()
+}
+
+func initEnvironment() {
+	if err := env.LoadENV(os.Getenv("ENV")); err != nil {
+		panic("wrong env key")
+	}
+}
+
+func initRouter() {
+	r := mux.NewRouter()
+	r.HandleFunc("/api/user/:id", helloworld).Methods("GET")
+	r.HandleFunc("/api/users", helloworld).Methods("GET")
+	r.HandleFunc("/api/user", controllers.PostUser).Methods("POST")
+
+	r.HandleFunc("/api/points/:id", helloworld).Methods("GET")
+	r.HandleFunc("/api/points", helloworld).Methods("GET")
+	r.HandleFunc("/api/point", helloworld).Methods("POST")
+	r.HandleFunc("/api/point/:id", helloworld).Methods("PUT")
+
+	r.HandleFunc("/api/point/:id/ratings/standing", helloworld).Methods("PUT")
+	r.HandleFunc("/api/point/:id/ratings/sitting", helloworld).Methods("PUT")
+	r.HandleFunc("/api/point/:id/comment/:idcomm", helloworld).Methods("POST")
+
+	log.Println("Server ready!")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
