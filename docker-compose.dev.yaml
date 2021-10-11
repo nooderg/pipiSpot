@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  pipiapi:
+    build:
+      context: .
+      dockerfile: build/package/Dockerfile
+      target: dev
+    env_file:
+      - .env.dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      - pipiDB
+
+  pipiDB:
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_DB: docker
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    ports:
+      - "5432:5432"
