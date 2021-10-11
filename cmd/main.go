@@ -3,27 +3,16 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
-	"github.com/nooderg/pipiSpot/internal/env"
 	_ "github.com/nooderg/pipiSpot/internal/configs"
 	"github.com/nooderg/pipiSpot/internal/controllers"
 	"github.com/nooderg/pipiSpot/pkg/responses"
 )
 
 func main() {
-	log.Println("Starting server...")
-	initEnvironment()
-
 	log.Println("Init routes...")
 	initRouter()
-}
-
-func initEnvironment() {
-	if err := env.LoadENV(os.Getenv("ENV")); err != nil {
-		panic("wrong env key")
-	}
 }
 
 func initRouter() {

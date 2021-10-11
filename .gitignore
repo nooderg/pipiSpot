@@ -1,1 +1,2 @@
-/internal/env/env.go
+.env.dev
+.env.prod

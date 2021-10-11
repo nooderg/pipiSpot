@@ -1,12 +1,11 @@
 package models
 
 type Ratings struct {
-	SpotID                int    `json:"spot_id"`
-	Position              string `json:"position"`
-	AccessibilityLikes    int    `json:"accessibility_likes"`
-	AccessibilityDislikes int    `json:"accessibility_dislikes"`
-	ExpositionLikes       int    `json:"exposition_likes"`
-	ExpositionDislikes    int    `json:"exposition_dislikes"`
-	CleanlinessLikes      int    `json:"cleanliness_likes"`
-	CleanlinessDislikes   int    `json:"cleanliness_dislikes"`
+	SpotID                string `json:"spot_id"`
+	AccessibilityLikes    uint   `json:"accessibility_likes"`
+	AccessibilityDislikes uint   `json:"accessibility_dislikes"`
+	ExpositionLikes       uint   `json:"exposition_likes"`
+	ExpositionDislikes    uint   `json:"exposition_dislikes"`
+	CleanlinessLikes      uint   `json:"cleanliness_likes"`
+	CleanlinessDislikes   uint   `json:"cleanliness_dislikes"`
 }
