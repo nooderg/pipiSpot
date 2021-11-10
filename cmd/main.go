@@ -7,7 +7,6 @@ import (
 	"github.com/gorilla/mux"
 	_ "github.com/nooderg/pipiSpot/internal/configs"
 	"github.com/nooderg/pipiSpot/internal/controllers"
-	"github.com/nooderg/pipiSpot/pkg/responses"
 )
 
 func main() {
@@ -17,23 +16,26 @@ func main() {
 
 func initRouter() {
 	r := mux.NewRouter()
-	r.HandleFunc("/api/user/:id", helloworld).Methods("GET")
-	r.HandleFunc("/api/users", helloworld).Methods("GET")
-	r.HandleFunc("/api/user", controllers.PostUser).Methods("POST")
+	r.HandleFunc("/api/users", controllers.CreateUser).Methods("POST")
+	r.HandleFunc("/api/users/{user_id:[0-9]+}", controllers.GetUser).Methods("GET")
+	r.HandleFunc("/api/users/{user_id:[0-9]+}", controllers.UpdateUser).Methods("PUT")
+	r.HandleFunc("/api/users/{user_id:[0-9]+}", controllers.DeleteUser).Methods("DELETE")
 
-	r.HandleFunc("/api/points/:id", helloworld).Methods("GET")
-	r.HandleFunc("/api/points", helloworld).Methods("GET")
-	r.HandleFunc("/api/point", helloworld).Methods("POST")
-	r.HandleFunc("/api/point/:id", helloworld).Methods("PUT")
+	r.HandleFunc("/api/spots", controllers.CreateSpot).Methods("POST")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}", controllers.GetSpot).Methods("GET")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}", controllers.UpdateSpot).Methods("PUT")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}", controllers.DeleteSpot).Methods("DELETE")
 
-	r.HandleFunc("/api/point/:id/ratings/standing", helloworld).Methods("PUT")
-	r.HandleFunc("/api/point/:id/ratings/sitting", helloworld).Methods("PUT")
-	r.HandleFunc("/api/point/:id/comment/:idcomm", helloworld).Methods("POST")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/ratings", controllers.CreateRatings).Methods("POST")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/ratings/{ratings_id:[0-9]+}", controllers.GetRatings).Methods("GET")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/ratings/{ratings_id:[0-9]+}", controllers.UpdateRatings).Methods("PUT")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/ratings/{ratings_id:[0-9]+}", controllers.DeleteRatings).Methods("DELETE")
+
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/comments", controllers.CreateComment).Methods("POST")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/comments/{comm_id:[0-9]+}", controllers.GetComment).Methods("GET")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/comments/{comm_id:[0-9]+}", controllers.UpdateComment).Methods("PUT")
+	r.HandleFunc("/api/spots/{spot_id:[0-9]+}/comments/{comm_id:[0-9]+}", controllers.DeleteComment).Methods("DELETE")
 
 	log.Println("Server ready!")
 	log.Fatal(http.ListenAndServe(":8080", r))
-}
-
-func helloworld(w http.ResponseWriter, r *http.Request) {
-	responses.WriteData(w, "hello world, I'm gonna change the way we... You know.")
 }
