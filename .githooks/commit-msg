@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # regex to validate in commit msg
 commit_regex='^(feat|fix|doc|add|update|delete)(\(.+\))?: .+|Merge.+'
