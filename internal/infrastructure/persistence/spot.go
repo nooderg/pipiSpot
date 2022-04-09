@@ -1,4 +1,4 @@
-package repository
+package persistence
 
 import (
 	"github.com/nooderg/pipiSpot/internal/models"
