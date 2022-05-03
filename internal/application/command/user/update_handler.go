@@ -9,17 +9,18 @@ import (
 	"github.com/nooderg/pipiSpot/internal/infrastructure/persistence"
 )
 
-type RegisterCommandHandler struct {
+type UpdateCommandHandler struct {
 	userRepository ports.UserRepository
+	// jwt
 }
 
-func (c RegisterCommandHandler) New() *RegisterCommandHandler {
-	return &RegisterCommandHandler{
+func (c UpdateCommandHandler) New() *UpdateCommandHandler {
+	return &UpdateCommandHandler{
 		userRepository: persistence.NewUserRepository(config.GetDBClient()),
 	}
 }
 
-func (c *RegisterCommandHandler) Handle(command RegisterCommand) (*domain.User, error) {
+func (c *UpdateCommandHandler) Handle(command UpdateCommand) (*domain.User, error) {
 	user := domain.User{
 		FirstName: command.FirstName,
 		LastName:  command.LastName,

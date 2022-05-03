@@ -43,11 +43,11 @@ func loadDBClient(fillDB bool) error {
 					time.Sleep(5 * time.Second)
 					continue
 				}
-				DBClient = db
 				break
 			}
 		}
-
+		
+		DBClient = db
 		break
 	}
 

@@ -7,8 +7,9 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/nooderg/pipiSpot/internal/application/command/user"
-	"github.com/nooderg/pipiSpot/internal/configs"
+	command "github.com/nooderg/pipiSpot/internal/application/command/user"
+	query "github.com/nooderg/pipiSpot/internal/application/query/user"
+	"github.com/nooderg/pipiSpot/internal/config"
 	"github.com/nooderg/pipiSpot/pkg/responses"
 )
 
@@ -37,9 +38,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dbClient := configs.GetDBClient()
-	repo := repository.UserRepository{}
-	user, err := repo.GetUserByID(dbClient, uint(userID))
+	userQuery := query.GetUserQuery{ID: uint(userID)}
+
+	handler := query.GetUserQueryHandler.New(query.GetUserQueryHandler{})
+	user, err := handler.Handle(userQuery)
 	if err != nil {
 		responses.WriteError(w, err)
 		return
@@ -65,7 +67,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	newUser := userForm.GetUser()
 	newUser.ID = uint(userID)
 
-	dbClient := configs.GetDBClient()
+	dbClient := config.GetDBClient()
 	repo := repository.UserRepository{}
 	err = repo.UpdateUser(dbClient, uint(userID), &newUser)
 	if err != nil {
@@ -83,7 +85,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dbClient := configs.GetDBClient()
+	dbClient := config.GetDBClient()
 	repo := repository.UserRepository{}
 
 	_, err = repo.GetUserByID(dbClient, uint(userID))
