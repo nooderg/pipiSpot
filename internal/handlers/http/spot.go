@@ -8,8 +8,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/nooderg/pipiSpot/internal/configs"
-	"github.com/nooderg/pipiSpot/internal/forms"
-	"github.com/nooderg/pipiSpot/internal/repository"
 	"github.com/nooderg/pipiSpot/pkg/responses"
 )
 

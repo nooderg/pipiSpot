@@ -1,4 +1,4 @@
-package models
+package domain
 
 type Ratings struct {
 	ID            uint   `json:"id"`

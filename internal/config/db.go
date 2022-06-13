@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/nooderg/pipiSpot/internal/models"
+	"github.com/nooderg/pipiSpot/internal/core/domain"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -37,7 +37,7 @@ func loadDBClient(fillDB bool) error {
 
 		if fillDB {
 			for {
-				err = db.AutoMigrate(&models.User{}, &models.Spot{}, &models.Comment{}, &models.Ratings{})
+				err = db.AutoMigrate(&domain.User{}, &domain.Spot{}, &domain.Comment{}, &domain.Ratings{})
 				if err != nil {
 					log.Println("Migration failled, retrying in 5 seconds...")
 					time.Sleep(5 * time.Second)
@@ -46,7 +46,7 @@ func loadDBClient(fillDB bool) error {
 				break
 			}
 		}
-		
+
 		DBClient = db
 		break
 	}

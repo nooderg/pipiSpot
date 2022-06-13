@@ -1,4 +1,4 @@
-package models
+package domain
 
 type Comment struct {
 	ID      uint   `json:"id"`

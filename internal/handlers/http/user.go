@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+
 	command "github.com/nooderg/pipiSpot/internal/application/command/user"
 	query "github.com/nooderg/pipiSpot/internal/application/query/user"
 	"github.com/nooderg/pipiSpot/internal/config"

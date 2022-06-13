@@ -1,4 +1,4 @@
-package models
+package domain
 
 type Spot struct {
 	ID       uint      `json:"id"`
