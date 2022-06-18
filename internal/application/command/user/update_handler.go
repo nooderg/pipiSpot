@@ -11,7 +11,6 @@ import (
 
 type UpdateCommandHandler struct {
 	userRepository ports.UserRepository
-	// jwt
 }
 
 func (c UpdateCommandHandler) New() *UpdateCommandHandler {
@@ -29,5 +28,5 @@ func (c *UpdateCommandHandler) Handle(command UpdateCommand) (*domain.User, erro
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-	return &user, c.userRepository.CreateUser(&user)
+	return &user, c.userRepository.UpdateUser(&user)
 }
